@@ -1,18 +1,17 @@
 package cs131.pa1.filter.sequential;
 
-<<<<<<< HEAD
+
 import java.util.Scanner;
 
 import cs131.pa1.filter.Message;
 
-=======
->>>>>>> ek
+
 public class SequentialREPL {
 
 	static String currentWorkingDirectory;
 	
 	public static void main(String[] args){
-<<<<<<< HEAD
+
 		Scanner console = new Scanner(System.in);
 		System.out.print(Message.NEWCOMMAND);
 		System.out.print(Message.WELCOME);
@@ -27,9 +26,7 @@ public class SequentialREPL {
 			System.out.print(Message.NEWCOMMAND);
 			userCommands = console.nextLine();
 		}
-=======
-		
->>>>>>> ek
+
 	}
 
 }
