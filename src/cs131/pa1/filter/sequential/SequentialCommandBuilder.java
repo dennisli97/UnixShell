@@ -134,7 +134,7 @@ public class SequentialCommandBuilder {
 				cmd = breakCurrCmd.next();
 				if (cmd.equals("pwd")) {
 					this.verifiedCommands.add(new PWD(currFullCmd));
-				} /*else if (cmd.equals("ls")) {
+				} else if (cmd.equals("ls")) {
 					this.verifiedCommands.add(new LS(currFullCmd));
 				} else if (cmd.equals("cd")) {
 					this.verifiedCommands.add(new CD(currFullCmd));
@@ -148,7 +148,7 @@ public class SequentialCommandBuilder {
 					this.verifiedCommands.add(new UNIQ(currFullCmd));
 				} else {
 					//to handle ">" cmd
-				}*/
+				}
 				breakCurrCmd.close();
 			}
 		}
