@@ -9,10 +9,9 @@ public abstract class SequentialFilter extends Filter {
 	
 	protected Queue<String> input;
 	protected Queue<String> output;
-<<<<<<< HEAD
+
 	protected String userCommand;
-=======
->>>>>>> ek
+
 	
 	@Override
 	public void setPrevFilter(Filter prevFilter) {
