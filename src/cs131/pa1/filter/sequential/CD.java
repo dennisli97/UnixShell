@@ -11,39 +11,38 @@ public class CD extends SequentialFilter{
 	
 	// constructor to add change of directory into input and initialize feild userCommand
 	// for error message
-	public CD(String change, String userCommand) {
+	private String change;
+	public CD(String change) {
 		input.add(change);
-		this.userCommand = userCommand;
+		this.change = change;
 		
 		
 	}
 	// process input queue to add on currentWorkingDirectory
-	public String process(String currentWorkingDirectory) {// contain returns to update directroy
-		
+	public void process() {// contain returns to update directroy
+		String currentWorkingDirectory = SequentialREPL.currentWorkingDirectory;
 		String changes= input.poll();
 		// case of no subcommand, cd to the most basic directory
 		if(changes.equals("")) {
-			int count=0;
-			int space =2;// most basic directory should only have 2/
-			for(int i=0; i < currentWorkingDirectory.length(); i++) {
-				char ch = currentWorkingDirectory.charAt(i);
-				if(ch == '/' && space !=0) {// if char is /, and has only reach the first two /
-					count = i;
-					space--;
-				}
-			}
-			if(space == 0) {
-				output.add(currentWorkingDirectory);
-				return currentWorkingDirectory;
-			}else {
-				output.add(currentWorkingDirectory.substring(0, count));
-				return currentWorkingDirectory.substring(0, count);
-			}
+			SequentialREPL.currentWorkingDirectory = System.getProperty("user.dir");
+			//			int count=0;
+//			int space =2;// most basic directory should only have 2/
+//			for(int i=0; i < currentWorkingDirectory.length(); i++) {
+//				char ch = currentWorkingDirectory.charAt(i);
+//				if(ch == '/' && space !=0) {// if char is /, and has only reach the first two /
+//					count = i;
+//					space--;
+//				}
+//			}
+//			if(space == 0) {
+//				SequentialREPL.currentWorkingDirectory = currentWorkingDirectory;
+//			}else {
+//				SequentialREPL.currentWorkingDirectory = currentWorkingDirectory.substring(0, count);
+//			}
 			
 		// case of one period as subcommand, stay in same working directory	
 		}else if(changes.equals(".")) {
-			output.add(currentWorkingDirectory);
-			return currentWorkingDirectory; 
+			SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory; 
 		
 		}else if(changes.equals("..")) {// case of tow period, return to the previous directory
 			
@@ -54,18 +53,15 @@ public class CD extends SequentialFilter{
 					count = i;
 				}
 			}
-			output.add(currentWorkingDirectory.substring(0, count));
-			return currentWorkingDirectory.substring(0, count);// cut the string before the last /
+			SequentialREPL.currentWorkingDirectory = currentWorkingDirectory.substring(0, count);// cut the string before the last /
 		
 		}else {// case of going into a directory
 			Path newPath = Paths.get(currentWorkingDirectory+changes);// initialize the path 
 			if(Files.exists(newPath)) {// check if directory exist
-				output.add(currentWorkingDirectory+changes);
-				return currentWorkingDirectory+changes;
+				SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory+changes;
 			}else {// else, error massage print out, stay in same directory
-				System.out.println(Message.DIRECTORY_NOT_FOUND.with_parameter(userCommand));
-				output.add(currentWorkingDirectory);
-				return currentWorkingDirectory;
+				System.out.println(Message.DIRECTORY_NOT_FOUND.with_parameter("CD "+change));
+				SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory;
 			}
 		}
 	}

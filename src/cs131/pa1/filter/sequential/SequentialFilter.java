@@ -10,8 +10,6 @@ public abstract class SequentialFilter extends Filter {
 	protected Queue<String> input;
 	protected Queue<String> output;
 
-	protected String userCommand;
-
 	
 	@Override
 	public void setPrevFilter(Filter prevFilter) {
