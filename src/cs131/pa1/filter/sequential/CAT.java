@@ -7,10 +7,12 @@ import java.util.Scanner;
 import cs131.pa1.filter.Message;
 
 public class CAT extends SequentialFilter{
-	// constructor to initialize th efilter
-	public CAT(String filesNames, String userCommand) {
-		this.userCommand = userCommand;
+	private String filesNames;
+	
+	// constructor to initialize the filter
+	public CAT(String filesNames) {
 		// if there is multiple files to cat, add them separately in the input queue
+		this.filesNames = filesNames;
 		String[] files = filesNames.split(" ");
 		for(int i=0; i<files.length;i++) {
 			input.add(files[i]);
@@ -19,7 +21,8 @@ public class CAT extends SequentialFilter{
 	
 	
 	
-	public void process(String currentWorkingDirectory) throws FileNotFoundException {
+	public void process() {
+		String currentWorkingDirectory = SequentialREPL.currentWorkingDirectory;
 		File[] files = new File(currentWorkingDirectory).listFiles();// list all file in the directory
 		boolean foundFile; // to check if file is found in the directory
 		while (!input.isEmpty()){
@@ -28,12 +31,16 @@ public class CAT extends SequentialFilter{
 			for (File file : files) {// go through file to find the desire file 
 			    if (file.getName().equals(fileName)) {
 			        File toCat = new File(currentWorkingDirectory+fileName);
-			        readFile(toCat);
-			        foundFile = true;
+			        try {
+						readFile(toCat);
+						foundFile = true;
+					} catch (FileNotFoundException e) {
+						// exception has been handled
+					}
 			    }
 			}
 			if(foundFile == false) {// if the file is not found in the directory, error message
-				System.out.println(Message.FILE_NOT_FOUND.with_parameter(userCommand));
+				System.out.println(Message.FILE_NOT_FOUND.with_parameter("CAT " + filesNames));
 				return;
 			}
 		}

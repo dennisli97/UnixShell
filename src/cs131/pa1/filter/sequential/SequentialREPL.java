@@ -1,6 +1,8 @@
 package cs131.pa1.filter.sequential;
 
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import cs131.pa1.filter.Message;
@@ -17,15 +19,22 @@ public class SequentialREPL {
 		System.out.print(Message.WELCOME);
 		System.out.print(Message.NEWCOMMAND);
 		String userCommands = console.nextLine();
-		currentWorkingDirectory = "";
+		currentWorkingDirectory = System.getProperty("user.dir");
 		while(!userCommands.equals("exit")) {
 			SequentialCommandBuilder current = new SequentialCommandBuilder(userCommands, currentWorkingDirectory);
-			// procvess and print out output  from command
-			
-			
+			List<SequentialFilter> filterList = current.createFiltersFromCommand();
+			Iterator<SequentialFilter> itr = filterList.iterator();
+			SequentialFilter currFilter;
+			if(itr != null) {
+				while(itr.hasNext()) {
+					currFilter =  itr.next();
+					currFilter.process();
+				}
+			}
 			System.out.print(Message.NEWCOMMAND);
 			userCommands = console.nextLine();
 		}
+		System.out.println(Message.GOODBYE);
 
 	}
 

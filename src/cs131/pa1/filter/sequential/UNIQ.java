@@ -7,13 +7,13 @@ public class UNIQ extends SequentialFilter{
 
 	private Queue<String> uniqOutput;
 	public UNIQ() {
-		uniqOutput = new LinkedList<String>();
+		uniqOutput = new LinkedList<String>();// new list to hold the uniq lines
 	}
 	public void process() {
 		String toCheck;
-		while(!isDone()) {
+		while(!isDone()) {// while there is still input
 			toCheck= input.poll();
-			if(!uniqOutput.contains(toCheck)) {
+			if(!uniqOutput.contains(toCheck)) {// check if input is already in the uniq list, if not, add the line in
 				uniqOutput.add(toCheck);
 			}
 		}

@@ -3,7 +3,8 @@ package cs131.pa1.filter.sequential;
 import java.io.File;
 
 public class LS extends SequentialFilter{
-	public void process(String currentWorkingDirectory) {
+	public void process() {
+		String currentWorkingDirectory = SequentialREPL.currentWorkingDirectory;
 		// array to hold all files and add each file anme to the output queue
 		File[] files = new File(currentWorkingDirectory).listFiles();
 		for (File file : files) {
