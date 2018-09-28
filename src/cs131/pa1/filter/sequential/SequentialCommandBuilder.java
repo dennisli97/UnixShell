@@ -86,7 +86,7 @@ public class SequentialCommandBuilder {
 				//4: check cmds that require param
 				} else if (cmd.equals("cat") || cmd.equals("grep") || cmd.equals(">")) {
 					if (subCmd.length() == 0) {
-						containsBrokenCmds = true; 
+						containsBrokenCmds = true;
 						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd));
 					}
 				//6: check wc cases
@@ -134,11 +134,11 @@ public class SequentialCommandBuilder {
 				} else if (cmd.equals("ls")) {
 					this.verifiedCommands.add(new LS());
 				} else if (cmd.equals("cd")) {
-					this.verifiedCommands.add(new CD(subCmd)); 
+					this.verifiedCommands.add(new CD(subCmd));
 				} else if (cmd.equals("cat")) {
-					this.verifiedCommands.add(new CAT(subCmd)); 
+					this.verifiedCommands.add(new CAT(subCmd));
 				} else if (cmd.equals("grep")) {
-					this.verifiedCommands.add(new GREP(subCmd)); 
+					this.verifiedCommands.add(new GREP(subCmd));
 				} else if (cmd.equals("wc")) {
 					this.verifiedCommands.add(new WC());
 				} else if (cmd.equals("uniq")) {
@@ -176,4 +176,3 @@ public class SequentialCommandBuilder {
 		}
 	}
 }
- 

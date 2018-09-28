@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Path;
+import java.util.LinkedList;
 
 public class Redirect extends SequentialFilter {
 	
@@ -12,6 +13,7 @@ public class Redirect extends SequentialFilter {
 	
 	public Redirect (String fileName) {
 		this.fileName = fileName;
+		output = new LinkedList<String>();
 	}
 	
 	public void process() {

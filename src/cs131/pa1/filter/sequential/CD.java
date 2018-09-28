@@ -3,6 +3,7 @@ package cs131.pa1.filter.sequential;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import cs131.pa1.filter.Message;
@@ -13,8 +14,11 @@ public class CD extends SequentialFilter{
 	// for error message
 	private String change;
 	public CD(String change) {
-		input.add(change);
+//		input = new LinkedList<String>();
+//		input.add(change);
 		this.change = change;
+
+		output = new LinkedList<String>();
 		
 		
 	}
@@ -22,9 +26,9 @@ public class CD extends SequentialFilter{
 	// contain returns to update directory
 	public void process() {
 		String currentWorkingDirectory = SequentialREPL.currentWorkingDirectory;
-		String changes= input.poll();
+//		String changes= input.poll();
 		// case of no subcommand, cd to the most basic directory
-		if(changes.equals("")) {
+		if(change.equals("")) {
 			SequentialREPL.currentWorkingDirectory = System.getProperty("user.dir");
 			//			int count=0;
 //			int space =2;// most basic directory should only have 2/
@@ -42,10 +46,10 @@ public class CD extends SequentialFilter{
 //			}
 			
 		// case of one period as subcommand, stay in same working directory	
-		}else if(changes.equals(".")) {
+		}else if(change.equals(".")) {
 			SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory; 
 		
-		}else if(changes.equals("..")) {// case of tow period, return to the previous directory
+		}else if(change.equals("..")) {// case of tow period, return to the previous directory
 			
 			int count=0;// counting the number of /
 			for(int i=0; i < currentWorkingDirectory.length(); i++) {
@@ -57,11 +61,11 @@ public class CD extends SequentialFilter{
 			SequentialREPL.currentWorkingDirectory = currentWorkingDirectory.substring(0, count);// cut the string before the last /
 		
 		}else {// case of going into a directory
-			Path newPath = Paths.get(currentWorkingDirectory+changes);// initialize the path 
+			Path newPath = Paths.get(currentWorkingDirectory+"/"+change);// initialize the path 
 			if(Files.exists(newPath)) {// check if directory exist
-				SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory+changes;
+				SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory+"/"+change;
 			}else {// else, error massage print out, stay in same directory
-				System.out.println(Message.DIRECTORY_NOT_FOUND.with_parameter("CD "+change));
+				System.out.print(Message.DIRECTORY_NOT_FOUND.with_parameter("CD "+change));
 				SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory;
 			}
 		}
