@@ -23,12 +23,15 @@ public class SequentialREPL {
 		while(!userCommands.equals("exit")) {// if user didn't type exit
 			SequentialCommandBuilder current = new SequentialCommandBuilder(userCommands, currentWorkingDirectory);
 			List<SequentialFilter> filterList = current.createFiltersFromCommand();
-			Iterator<SequentialFilter> itr = filterList.iterator();
-			SequentialFilter currFilter;
-			if(itr != null) {// if there is filters in the filterList
+			if(filterList != null) {// if there is filters in the filterList
+				Iterator<SequentialFilter> itr = filterList.iterator();
+				SequentialFilter currFilter = null;
 				while(itr.hasNext()) {
 					currFilter =  itr.next();
 					currFilter.process();// process the filter
+				}
+				while(!currFilter.output.isEmpty()) {
+					System.out.println(currFilter.output.poll());
 				}
 			}
 			System.out.print(Message.NEWCOMMAND);

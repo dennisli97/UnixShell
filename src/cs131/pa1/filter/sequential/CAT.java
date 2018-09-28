@@ -2,6 +2,7 @@ package cs131.pa1.filter.sequential;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import cs131.pa1.filter.Message;
@@ -14,6 +15,8 @@ public class CAT extends SequentialFilter{
 		// if there is multiple files to cat, add them separately in the input queue
 		this.filesNames = filesNames;
 		String[] files = filesNames.split(" ");
+		input = new LinkedList<String>();
+		output = new LinkedList<String>();
 		for(int i=0; i<files.length;i++) {
 			input.add(files[i]);
 		}
@@ -30,7 +33,7 @@ public class CAT extends SequentialFilter{
 			String fileName = input.poll();
 			for (File file : files) {// go through file to find the desire file 
 			    if (file.getName().equals(fileName)) {
-			        File toCat = new File(currentWorkingDirectory+fileName);
+			        File toCat = new File(currentWorkingDirectory+"/"+fileName);
 			        try {
 						readFile(toCat);
 						foundFile = true;
@@ -40,7 +43,7 @@ public class CAT extends SequentialFilter{
 			    }
 			}
 			if(foundFile == false) {// if the file is not found in the directory, error message
-				System.out.println(Message.FILE_NOT_FOUND.with_parameter("CAT " + filesNames));
+				System.out.print(Message.FILE_NOT_FOUND.with_parameter("CAT " + filesNames));
 				return;
 			}
 		}

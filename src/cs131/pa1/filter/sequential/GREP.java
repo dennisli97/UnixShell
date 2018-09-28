@@ -1,5 +1,6 @@
 package cs131.pa1.filter.sequential;
 
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class GREP extends SequentialFilter {
@@ -8,6 +9,7 @@ public class GREP extends SequentialFilter {
 	// constructor to initialize  searchString
 	public GREP(String searchString) {
 		this.searchString = searchString;
+		output = new LinkedList<String>();
 	}
 	
 	
