@@ -32,10 +32,8 @@ public class SequentialCommandBuilder {
 		if (userCommands == null) {
 			return null;
 		}
-		//split the userInput by | and put them into an Array
-		userCommands.replace(">", "|>");
-		//need to use escape sequence 
-		userCommands.replace("|", "\\|");
+		//split the userInput by | and put them into an Array, need to use esc seq
+		userCommands.replace(">", "\\|>");
 		String[] split = userCommands.split("\\|");
 		//loop verify each command/add it to the queue of verified commands
 		int count = 0;
@@ -130,6 +128,7 @@ public class SequentialCommandBuilder {
 				while (breakCurrCmd.hasNext()) {
 					subCmd = subCmd + " " + breakCurrCmd.next();
 				}
+				//create filters
 				if (cmd.equals("pwd")) {
 					this.verifiedCommands.add(new PWD());
 				} else if (cmd.equals("ls")) {
@@ -149,7 +148,11 @@ public class SequentialCommandBuilder {
 				}
 				breakCurrCmd.close();
 			}
+		//case where
+		} else {
+			return null;
 		}
+		this.linkFilters(verifiedCommands);
 		return verifiedCommands;
 	}
 
