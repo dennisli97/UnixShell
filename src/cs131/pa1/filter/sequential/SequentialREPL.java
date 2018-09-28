@@ -11,7 +11,7 @@ import cs131.pa1.filter.Message;
 public class SequentialREPL {
 
 	static String currentWorkingDirectory;
-	
+
 	public static void main(String[] args){
 
 		Scanner console = new Scanner(System.in);// scanner to read input
@@ -19,7 +19,7 @@ public class SequentialREPL {
 		System.out.print(Message.WELCOME);
 		System.out.print(Message.NEWCOMMAND);
 		String userCommands = console.nextLine();
-		currentWorkingDirectory = System.getProperty("user.dir");// work in the directory where the program is runnning 
+		currentWorkingDirectory = System.getProperty("user.dir");// work in the directory where the program is running 
 		while(!userCommands.equals("exit")) {// if user didn't type exit
 			SequentialCommandBuilder current = new SequentialCommandBuilder(userCommands, currentWorkingDirectory);
 			List<SequentialFilter> filterList = current.createFiltersFromCommand();
