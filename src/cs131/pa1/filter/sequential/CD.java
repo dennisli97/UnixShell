@@ -19,7 +19,8 @@ public class CD extends SequentialFilter{
 		
 	}
 	// process input queue to add on currentWorkingDirectory
-	public void process() {// contain returns to update directroy
+	// contain returns to update directory
+	public void process() {
 		String currentWorkingDirectory = SequentialREPL.currentWorkingDirectory;
 		String changes= input.poll();
 		// case of no subcommand, cd to the most basic directory
