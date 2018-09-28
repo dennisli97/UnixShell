@@ -25,7 +25,7 @@ public class SequentialCommandBuilder {
 	}
 
 	//verifies the user's input syntax, and adds it to a linked list of verified commands to be executed by process
-	public static Queue<String> verifyAndSplit(String userCommands) {
+	private Queue<String> verifyAndSplit(String userCommands) {
 		//create a queue to hold the verified commands
 		Queue<String> verified = new LinkedList<String>();
 		//if user doesnt enter any input
@@ -34,6 +34,7 @@ public class SequentialCommandBuilder {
 		}
 		//split the userInput by | and put them into an Array
 		userCommands.replace(">", "|>");
+		//need to use escape sequence 
 		userCommands.replace("|", "\\|");
 		String[] split = userCommands.split("\\|");
 		//loop verify each command/add it to the queue of verified commands
@@ -44,7 +45,8 @@ public class SequentialCommandBuilder {
 			currCmdString = split[count];
 			String cmd, subCmd = "";
 			Scanner readCmd = new Scanner(currCmdString);
-			cmd = readCmd.nextLine();
+			cmd = readCmd.next();
+			System.out.println(cmd);
 			//check if subCmd is present, if yes: save it
 			if (readCmd.hasNext()) {
 				subCmd += readCmd.next();
@@ -56,6 +58,7 @@ public class SequentialCommandBuilder {
 				subCmd = subCmd + " " + readCmd.next();
 				multSubs = true;
 			}
+			System.out.println("cmd: " + cmd + " sub: " + subCmd);
 			readCmd.close();
 			//boolean to determine whether or not all cmds are valid
 			boolean containsBrokenCmds = false;
@@ -68,44 +71,33 @@ public class SequentialCommandBuilder {
 				System.out.print(Message.COMMAND_NOT_FOUND.with_parameter(cmd));
 			//else case: cmd is verified
 			} else {
-				//1: check pwd cases
-				if (cmd.equals("pwd")) {
-					//case for pwd with subcmd
+				//1: check cmds that do no accept params
+				if (cmd.equals("pwd") || cmd.equals("ls") || cmd.equals("uniq")) {
+					//case for pwd and ls with subcmd
 					if (subCmd.length() != 0) {
 						containsBrokenCmds = true;
 						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd));
 					}
-				//2: check ls cases
-				} else if (cmd.equals("ls")) {
-					//case for ls with subcmd
-					if (subCmd.length() != 0) {
-						containsBrokenCmds = true;
-						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd));
-					}
-				//3: check cd cases, pass over empty string even if it happens
+				//3: check cd cases
 				} else if (cmd.equals("cd")) {
 					//cd cannot have more than 1 subcmd
 					if (multSubs) {
 						containsBrokenCmds = true;
-						System.out.print(Message.INVALID_PARAMETER);
+						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd));
 					}
-				//4: check cat cases
-				} else if (cmd.equals("cat")) {
-
-				//5: check grep cases
-				} else if (cmd.equals("grep")) {
-
+				//4: check cmds that require param
+				} else if (cmd.equals("cat") || cmd.equals("grep") || cmd.equals(">")) {
+					if (subCmd.length() == 0) {
+						containsBrokenCmds = true; 
+						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd));
+					}
 				//6: check wc cases
 				} else if (cmd.equals("wc")) {
-
-				//7:check uniq cases
-				} else if (cmd.equals("uniq")) {
-
-				//8: check > cases
-				} else {
-
+					if (subCmd.length() > 0) {
+						containsBrokenCmds = true;
+						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd));
+					}
 				}
-
 			}
 			//rej everything if a single brokencmd is present
 			if (containsBrokenCmds) {
@@ -122,53 +114,63 @@ public class SequentialCommandBuilder {
 		return verified;
 	}
 
-	public List<SequentialFilter> createFiltersFromCommand(String userCommands){
-		Queue<String> splitCmds = verifyAndSplit(userCommands);
-		String currFullCmd;
-		String cmd;
+	public List<SequentialFilter> createFiltersFromCommand(){
+		Queue<String> splitCmds = verifyAndSplit(this.userCommands);
 		//traverse the list of verified user cmds and construct filters one by one
 		if (splitCmds != null) {
 			while (splitCmds.peek() != null) {
+				String currFullCmd,cmd, subCmd = "";
 				currFullCmd = splitCmds.poll();
 				Scanner breakCurrCmd = new Scanner(currFullCmd);
 				cmd = breakCurrCmd.next();
+				//check if subCmd is present, if yes: save it
+				if (breakCurrCmd.hasNext()) {
+					subCmd += breakCurrCmd.next();
+				}
+				while (breakCurrCmd.hasNext()) {
+					subCmd = subCmd + " " + breakCurrCmd.next();
+				}
 				if (cmd.equals("pwd")) {
-					this.verifiedCommands.add(new PWD(currFullCmd));
-				} /*else if (cmd.equals("ls")) {
-					this.verifiedCommands.add(new LS(currFullCmd));
+					this.verifiedCommands.add(new PWD());
+				} else if (cmd.equals("ls")) {
+					this.verifiedCommands.add(new LS());
 				} else if (cmd.equals("cd")) {
-					this.verifiedCommands.add(new CD(currFullCmd));
+					this.verifiedCommands.add(new CD(subCmd)); 
 				} else if (cmd.equals("cat")) {
-					this.verifiedCommands.add(new CAT(currFullCmd));
+					this.verifiedCommands.add(new CAT(subCmd)); 
 				} else if (cmd.equals("grep")) {
-					this.verifiedCommands.add(new GREP(currFullCmd));
+					this.verifiedCommands.add(new GREP(subCmd)); 
 				} else if (cmd.equals("wc")) {
-					this.verifiedCommands.add(new WC(currFullCmd));
+					this.verifiedCommands.add(new WC());
 				} else if (cmd.equals("uniq")) {
-					this.verifiedCommands.add(new UNIQ(currFullCmd));
+					this.verifiedCommands.add(new UNIQ());
 				} else {
-					//to handle ">" cmd
-				}*/
+					this.verifiedCommands.add(new redirect(currFullCmd)); //subc
+				}
 				breakCurrCmd.close();
 			}
 		}
 		return verifiedCommands;
 	}
 
-	private static SequentialFilter determineFinalFilter(String command){
-		return null;
-	}
-
-	private static String adjustCommandToRemoveFinalFilter(String command){
-		return null;
-	}
-
-	private static SequentialFilter constructFilterFromSubCommand(String subCommand){
-		return null;
-	}
 	//to link an already verified and instantiated cmd to the list
-	private static boolean linkFilters(List<SequentialFilter> verifiedCommands, SequentialFilter cmd){
-		verifiedCommands.add(cmd);
-		return true;
+	private void linkFilters(List<SequentialFilter> verifiedCommands){
+		Iterator<SequentialFilter> itr = verifiedCommands.iterator();
+		SequentialFilter prev = null;
+		SequentialFilter curr = null;
+		if (itr.hasNext()) {
+			prev = itr.next();
+			while (itr.hasNext()) {
+				curr = itr.next();
+				if (curr != null) {
+					curr.setPrevFilter(prev);
+				}
+				if (prev != null) {
+					prev.setNextFilter(curr);
+				}
+				prev = curr;
+			}
+		}
 	}
 }
+ 

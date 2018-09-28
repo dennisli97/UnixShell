@@ -11,7 +11,7 @@ import cs131.pa1.filter.Message;
 public class SequentialREPL {
 
 	static String currentWorkingDirectory;
-	
+
 	public static void main(String[] args){
 
 		Scanner console = new Scanner(System.in);
