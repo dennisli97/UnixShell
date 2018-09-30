@@ -21,7 +21,7 @@ public class CD extends SequentialFilter{
 	// contain returns to update directory
 	public void process() {
 		String currWD = SequentialREPL.currentWorkingDirectory;
-		String endDir = currWD + System.getProperty("file.separator") + change;
+		String endDir = currWD + FILE_SEPARATOR + change;
 		//to check if user's desired dir exists
 		if (Files.isDirectory(Paths.get(endDir))) {
 			//check for .. subcmd
