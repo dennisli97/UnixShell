@@ -20,6 +20,10 @@ public class CD extends SequentialFilter{
 	// process input queue to add on currentWorkingDirectory
 	// contain returns to update directory
 	public void process() {
+		if(input != null) {
+			System.out.print(Message.CANNOT_HAVE_INPUT.with_parameter("cd "+change));
+			return;
+		}
 		String currWD = SequentialREPL.currentWorkingDirectory;
 		String endDir = currWD + FILE_SEPARATOR + change;
 		//to check if user's desired dir exists
