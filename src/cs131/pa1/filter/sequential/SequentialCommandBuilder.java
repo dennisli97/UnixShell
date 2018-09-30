@@ -64,7 +64,7 @@ public class SequentialCommandBuilder {
 			//check if cmd is valid, if not return null queue
 			if (!recognizedCommands.contains(cmd)) {
 				containsBrokenCmds = true;
-				System.out.print(Message.COMMAND_NOT_FOUND.with_parameter(cmd));
+				System.out.print(Message.COMMAND_NOT_FOUND.with_parameter(cmd + " " + subCmd));
 			//else case: cmd is verified
 			} else {
 				//1: check cmds that do no accept params
@@ -72,26 +72,26 @@ public class SequentialCommandBuilder {
 					//case for pwd and ls with subcmd
 					if (subCmd.length() != 0) {
 						containsBrokenCmds = true;
-						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd));
+						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd + " " + subCmd));
 					}
 				//3: check cd cases
 				} else if (cmd.equals("cd")) {
 					//cd cannot have more than 1 subcmd
 					if (multSubs) {
 						containsBrokenCmds = true;
-						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd));
+						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd + " " + subCmd));
 					}
 				//4: check cmds that require param
 				} else if (cmd.equals("cat") || cmd.equals("grep") || cmd.equals(">")) {
 					if (subCmd.length() == 0) {
 						containsBrokenCmds = true;
-						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd));
+						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd + " " + subCmd));
 					}
 				//6: check wc cases
 				} else if (cmd.equals("wc")) {
 					if (subCmd.length() > 0) {
 						containsBrokenCmds = true;
-						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd));
+						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd + " " + subCmd));
 					}
 				}
 			}
