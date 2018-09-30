@@ -80,12 +80,15 @@ public class SequentialCommandBuilder {
 					if (multSubs) {
 						containsBrokenCmds = true;
 						System.out.print(Message.INVALID_PARAMETER.with_parameter(cmd + " " + subCmd));
+					} else if (subCmd.equals("")) {
+						containsBrokenCmds = true;
+						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd));
 					}
 				//4: check cmds that require param
 				} else if (cmd.equals("cat") || cmd.equals("grep") || cmd.equals(">")) {
 					if (subCmd.length() == 0) {
 						containsBrokenCmds = true;
-						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd + " " + subCmd));
+						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd));
 					}
 				//6: check wc cases
 				} else if (cmd.equals("wc")) {
