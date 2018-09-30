@@ -30,21 +30,6 @@ public class CD extends SequentialFilter{
 		// case of no subcommand, cd to the most basic directory
 		if(change.equals("")) {
 			SequentialREPL.currentWorkingDirectory = System.getProperty("user.dir");
-			//			int count=0;
-//			int space =2;// most basic directory should only have 2/
-//			for(int i=0; i < currentWorkingDirectory.length(); i++) {
-//				char ch = currentWorkingDirectory.charAt(i);
-//				if(ch == '/' && space !=0) {// if char is /, and has only reach the first two /
-//					count = i;
-//					space--;
-//				}
-//			}
-//			if(space == 0) {
-//				SequentialREPL.currentWorkingDirectory = currentWorkingDirectory;
-//			}else {
-//				SequentialREPL.currentWorkingDirectory = currentWorkingDirectory.substring(0, count);
-//			}
-			
 		// case of one period as subcommand, stay in same working directory	
 		}else if(change.equals(".")) {
 			SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory; 
@@ -65,7 +50,7 @@ public class CD extends SequentialFilter{
 			if(Files.exists(newPath)) {// check if directory exist
 				SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory+"/"+change;
 			}else {// else, error massage print out, stay in same directory
-				System.out.print(Message.DIRECTORY_NOT_FOUND.with_parameter("CD "+change));
+				System.out.print(Message.NEWCOMMAND+Message.DIRECTORY_NOT_FOUND.with_parameter("CD "+change));
 				SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory;
 			}
 		}

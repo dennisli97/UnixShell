@@ -9,7 +9,7 @@ public class WC extends SequentialFilter{
 		int lineCount =0;
 		int wordCount =0;
 		int charCount =0;// variable to count the lines, words and characters
-		input = new LinkedList<String>();
+
 		output = new LinkedList<String>();
 		
 		while(!isDone()) {// while input is not empty

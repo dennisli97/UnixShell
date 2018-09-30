@@ -44,7 +44,7 @@ public class SequentialCommandBuilder {
 			String cmd, subCmd = "";
 			Scanner readCmd = new Scanner(currCmdString);
 			cmd = readCmd.next();
-			System.out.println(cmd);
+//			System.out.println(cmd);
 			//check if subCmd is present, if yes: save it
 			if (readCmd.hasNext()) {
 				subCmd += readCmd.next();
@@ -56,7 +56,7 @@ public class SequentialCommandBuilder {
 				subCmd = subCmd + " " + readCmd.next();
 				multSubs = true;
 			}
-			System.out.println("cmd: " + cmd + " sub: " + subCmd);
+//			System.out.println("cmd: " + cmd + " sub: " + subCmd);
 			readCmd.close();
 			//boolean to determine whether or not all cmds are valid
 			boolean containsBrokenCmds = false;

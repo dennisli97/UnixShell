@@ -43,7 +43,7 @@ public class CAT extends SequentialFilter{
 			    }
 			}
 			if(foundFile == false) {// if the file is not found in the directory, error message
-				System.out.print(Message.FILE_NOT_FOUND.with_parameter("CAT " + filesNames));
+				System.out.print(Message.NEWCOMMAND+Message.FILE_NOT_FOUND.with_parameter("CAT " + filesNames));
 				return;
 			}
 		}
