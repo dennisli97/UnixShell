@@ -145,7 +145,7 @@ public class SequentialCommandBuilder {
 				} else if (cmd.equals("uniq")) {
 					this.verifiedCommands.add(new UNIQ());
 				} else {
-					this.verifiedCommands.add(new Redirect(currFullCmd)); //subc
+					this.verifiedCommands.add(new Redirect(subCmd)); 
 				}
 				breakCurrCmd.close();
 			}
