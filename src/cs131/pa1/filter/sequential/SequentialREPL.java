@@ -15,7 +15,6 @@ public class SequentialREPL {
 	public static void main(String[] args){
 
 		Scanner console = new Scanner(System.in);// scanner to read input
-		System.out.print(Message.NEWCOMMAND);
 		System.out.print(Message.WELCOME);
 		System.out.print(Message.NEWCOMMAND);
 		String userCommands = console.nextLine();
@@ -30,14 +29,16 @@ public class SequentialREPL {
 					currFilter =  itr.next();
 					currFilter.process();// process the filter
 				}
-				while(!currFilter.output.isEmpty()) {
-					System.out.println(currFilter.output.poll());
+				if (currFilter.output != null) {
+					while(!currFilter.output.isEmpty()) {
+						System.out.println(currFilter.output.poll());
+					}
 				}
 			}
 			System.out.print(Message.NEWCOMMAND);
 			userCommands = console.nextLine();
 		}
-		System.out.println(Message.GOODBYE);
+		System.out.print(Message.GOODBYE);
 
 	}
 

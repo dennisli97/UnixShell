@@ -32,8 +32,8 @@ public class SequentialCommandBuilder {
 		if (userCommands == null) {
 			return null;
 		}
-		//split the userInput by | and put them into an Array
-		userCommands.replace(">", "\\|>");
+		//split the userInput by | and put them into an Array, need to use esc seq
+		userCommands = userCommands.replaceAll(">", "\\|>");
 		String[] split = userCommands.split("\\|");
 		//loop verify each command/add it to the queue of verified commands
 		int count = 0;
@@ -44,7 +44,9 @@ public class SequentialCommandBuilder {
 			String cmd, subCmd = "";
 			Scanner readCmd = new Scanner(currCmdString);
 			cmd = readCmd.next();
+
 //			System.out.println(cmd);
+
 			//check if subCmd is present, if yes: save it
 			if (readCmd.hasNext()) {
 				subCmd += readCmd.next();
@@ -56,7 +58,9 @@ public class SequentialCommandBuilder {
 				subCmd = subCmd + " " + readCmd.next();
 				multSubs = true;
 			}
+
 //			System.out.println("cmd: " + cmd + " sub: " + subCmd);
+
 			readCmd.close();
 			//boolean to determine whether or not all cmds are valid
 			boolean containsBrokenCmds = false;
@@ -86,7 +90,7 @@ public class SequentialCommandBuilder {
 				//4: check cmds that require param
 				} else if (cmd.equals("cat") || cmd.equals("grep") || cmd.equals(">")) {
 					if (subCmd.length() == 0) {
-						containsBrokenCmds = true; 
+						containsBrokenCmds = true;
 						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd));
 					}
 				//6: check wc cases
@@ -128,16 +132,17 @@ public class SequentialCommandBuilder {
 				while (breakCurrCmd.hasNext()) {
 					subCmd = subCmd + " " + breakCurrCmd.next();
 				}
+				//create filters
 				if (cmd.equals("pwd")) {
 					this.verifiedCommands.add(new PWD());
 				} else if (cmd.equals("ls")) {
 					this.verifiedCommands.add(new LS());
 				} else if (cmd.equals("cd")) {
-					this.verifiedCommands.add(new CD(subCmd)); 
+					this.verifiedCommands.add(new CD(subCmd));
 				} else if (cmd.equals("cat")) {
-					this.verifiedCommands.add(new CAT(subCmd)); 
+					this.verifiedCommands.add(new CAT(subCmd));
 				} else if (cmd.equals("grep")) {
-					this.verifiedCommands.add(new GREP(subCmd)); 
+					this.verifiedCommands.add(new GREP(subCmd));
 				} else if (cmd.equals("wc")) {
 					this.verifiedCommands.add(new WC());
 				} else if (cmd.equals("uniq")) {
@@ -147,7 +152,8 @@ public class SequentialCommandBuilder {
 				}
 				breakCurrCmd.close();
 			}
-		}else {
+		//case where
+		} else {
 			return null;
 		}
 		this.linkFilters(verifiedCommands);
@@ -174,4 +180,3 @@ public class SequentialCommandBuilder {
 		}
 	}
 }
- 

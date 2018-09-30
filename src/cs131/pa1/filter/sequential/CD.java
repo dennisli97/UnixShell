@@ -9,50 +9,30 @@ import java.util.Scanner;
 import cs131.pa1.filter.Message;
 
 public class CD extends SequentialFilter{
-	
+
 	// constructor to add change of directory into input and initialize feild userCommand
 	// for error message
 	private String change;
-	public CD(String change) {
-//		input = new LinkedList<String>();
-//		input.add(change);
-		this.change = change;
 
-		output = new LinkedList<String>();
-		
-		
+	public CD(String change) {
+		this.change = change;
 	}
 	// process input queue to add on currentWorkingDirectory
 	// contain returns to update directory
 	public void process() {
-		String currentWorkingDirectory = SequentialREPL.currentWorkingDirectory;
-//		String changes= input.poll();
-		// case of no subcommand, cd to the most basic directory
-		if(change.equals("")) {
-			SequentialREPL.currentWorkingDirectory = System.getProperty("user.dir");
-		// case of one period as subcommand, stay in same working directory	
-		}else if(change.equals(".")) {
-			SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory; 
-		
-		}else if(change.equals("..")) {// case of tow period, return to the previous directory
-			
-			int count=0;// counting the number of /
-			for(int i=0; i < currentWorkingDirectory.length(); i++) {
-				char ch = currentWorkingDirectory.charAt(i);
-				if(ch == '/') {
-					count = i;
-				}
+		String currWD = SequentialREPL.currentWorkingDirectory;
+		String endDir = currWD + FILE_SEPARATOR + change;
+		//to check if user's desired dir exists
+		if (Files.isDirectory(Paths.get(endDir))) {
+			//check for .. subcmd
+			if (change.equals("..")) {
+				int cut = currWD.lastIndexOf(FILE_SEPARATOR);
+				currWD = currWD.substring(0, cut);
 			}
-			SequentialREPL.currentWorkingDirectory = currentWorkingDirectory.substring(0, count);// cut the string before the last /
-		
-		}else {// case of going into a directory
-			Path newPath = Paths.get(currentWorkingDirectory+"/"+change);// initialize the path 
-			if(Files.exists(newPath)) {// check if directory exist
-				SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory+"/"+change;
-			}else {// else, error massage print out, stay in same directory
-				System.out.print(Message.NEWCOMMAND+Message.DIRECTORY_NOT_FOUND.with_parameter("CD "+change));
-				SequentialREPL.currentWorkingDirectory =  currentWorkingDirectory;
-			}
+			currWD = currWD + FILE_SEPARATOR + change;
+			SequentialREPL.currentWorkingDirectory = currWD;
+		} else {
+			System.out.print(Message.DIRECTORY_NOT_FOUND.with_parameter("cd " + change));
 		}
 	}
 
@@ -60,5 +40,5 @@ public class CD extends SequentialFilter{
 	protected String processLine(String line) {
 		// TODO Auto-generated method stub
 		return null;
-	} 
+	}
 }

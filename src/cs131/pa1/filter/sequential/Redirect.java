@@ -13,7 +13,6 @@ public class Redirect extends SequentialFilter {
 	
 	public Redirect (String fileName) {
 		this.fileName = fileName;
-		output = new LinkedList<String>();
 	}
 	
 	public void process() {
