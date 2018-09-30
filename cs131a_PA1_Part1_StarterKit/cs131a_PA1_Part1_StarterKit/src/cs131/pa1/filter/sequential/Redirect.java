@@ -38,7 +38,7 @@ public class Redirect extends SequentialFilter {
 				insert.println(input.poll());// add all input into the file
 			}
 		} catch (FileNotFoundException e) {
-			//file will be created if no file;
+			e.printStackTrace();
 		}
 	}
 	

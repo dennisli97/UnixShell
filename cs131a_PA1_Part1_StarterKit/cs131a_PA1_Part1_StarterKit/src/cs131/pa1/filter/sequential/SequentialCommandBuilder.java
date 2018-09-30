@@ -88,7 +88,7 @@ public class SequentialCommandBuilder {
 				} else if (cmd.equals("cat") || cmd.equals("grep") || cmd.equals(">")) {
 					if (subCmd.length() == 0) {
 						containsBrokenCmds = true;
-						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd + " " + subCmd));
+						System.out.print(Message.REQUIRES_PARAMETER.with_parameter(cmd));
 					}
 				//6: check wc cases
 				} else if (cmd.equals("wc")) {
@@ -145,7 +145,7 @@ public class SequentialCommandBuilder {
 				} else if (cmd.equals("uniq")) {
 					this.verifiedCommands.add(new UNIQ());
 				} else {
-					this.verifiedCommands.add(new Redirect(currFullCmd)); //subc
+					this.verifiedCommands.add(new Redirect(subCmd)); 
 				}
 				breakCurrCmd.close();
 			}
