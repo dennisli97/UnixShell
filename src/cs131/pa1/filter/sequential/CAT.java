@@ -22,8 +22,6 @@ public class CAT extends SequentialFilter{
 		}
 	}
 	
-	
-	
 	public void process() {
 		String currentWorkingDirectory = SequentialREPL.currentWorkingDirectory;
 		File[] files = new File(currentWorkingDirectory).listFiles();// list all file in the directory
