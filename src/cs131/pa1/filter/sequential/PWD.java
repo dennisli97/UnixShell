@@ -4,11 +4,9 @@ import java.util.LinkedList;
 
 public class PWD extends SequentialFilter{
 	
-	public PWD() {
-		output = new LinkedList<String>();
-	}
 	public void process() {
 		// add the current working directory to the output queue
+		output = new LinkedList<String>();
 		output.add(SequentialREPL.currentWorkingDirectory);
 	}
 
