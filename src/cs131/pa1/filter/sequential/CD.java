@@ -25,13 +25,21 @@ public class CD extends SequentialFilter{
 		//to check if user's desired dir exists
 		if (Files.isDirectory(Paths.get(endDir))) {
 			//check for .. subcmd
-			if (change.equals("..")) {
-				int cut = currWD.lastIndexOf(FILE_SEPARATOR);
-				currWD = currWD.substring(0, cut);
+			if (change.equals("..") || change.equals(".")) {
+				if (change.equals("..")) {
+					int cut = currWD.lastIndexOf(FILE_SEPARATOR);
+					currWD = currWD.substring(0, cut);
+				}
+			} else {
+				currWD = currWD + FILE_SEPARATOR + change;
 			}
-			currWD = currWD + FILE_SEPARATOR + change;
 			SequentialREPL.currentWorkingDirectory = currWD;
+<<<<<<< HEAD
 		} else {
+=======
+		//case where user's desired dir does not exist
+		} else { 
+>>>>>>> bd6bbc191988f3a766dfefd1ca275e0878083cd8
 			System.out.print(Message.DIRECTORY_NOT_FOUND.with_parameter("cd " + change));
 		}
 	}
