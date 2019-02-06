@@ -1,6 +1,6 @@
 # UNIXshell
 
-> This project is a simulation of a basic command line environment that supports concurrency for interacting with a UNIX file system. 
+> This Java project is a simulation of a basic command line environment that supports concurrency for interacting with a UNIX file system. 
 > Each command executes in a separate thread, thus allowing the program to run concurrently. Commands can also be run as background processes.
 
 ## **Supported Commands**
@@ -20,3 +20,4 @@
 ### 4. Concurrency:
   - & : Adding this to the end of a command causes it to execute as a background process, printing output as soon as the process terminates
   - repl_jobs : Prints a list of background processes that are currently running 
+**The goal of this project is to demonstrate understanding in multi-threading and concurrency.**
