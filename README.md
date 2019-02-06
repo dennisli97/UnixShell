@@ -16,7 +16,7 @@
   - uniq : Filters out duplicate lines from the input
 ### 3. Redirection and Piping
   - | : Pipes output from the command before the | symbol as input for the trailing command
-  - > : Reads piped input, and writes it to the file specified after the > symbol
+  - \> : Reads piped input, and writes it to the file specified after the > symbol
 ### 4. Concurrency
   - & : Adding this to the end of a command causes it to execute as a background process, printing output as soon as the process terminates
   - repl_jobs : Prints a list of background processes that are currently running 
