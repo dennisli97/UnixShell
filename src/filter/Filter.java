@@ -1,4 +1,4 @@
-package cs131.pa1.filter;
+package filter;
 
 public abstract class Filter {
     

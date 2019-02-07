@@ -1,7 +1,7 @@
-package cs131.pa1.filter.concurrent;
+package filter.concurrent;
 
-import cs131.pa1.filter.Message;
-//
+import filter.Message;
+
 public class GrepFilter extends ConcurrentFilter {
 	private String toFind;
 	

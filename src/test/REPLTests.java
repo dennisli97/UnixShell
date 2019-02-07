@@ -1,7 +1,7 @@
-package cs131.pa1.test;
+package test;
 
-import cs131.pa1.filter.Message;
-import cs131.pa1.filter.concurrent.ConcurrentREPL;
+import filter.Message;
+import filter.concurrent.ConcurrentREPL;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

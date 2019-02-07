@@ -1,9 +1,9 @@
-package cs131.pa1.filter.concurrent;
+package filter.concurrent;
 
 import java.io.File;
 
-import cs131.pa1.filter.Filter;
-import cs131.pa1.filter.Message;
+import filter.Filter;
+import filter.Message;
 
 public class CdFilter extends ConcurrentFilter {
 	private String dirToSet;

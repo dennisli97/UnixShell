@@ -1,4 +1,4 @@
-package cs131.pa1.filter.concurrent;
+package filter.concurrent;
 
 import java.util.LinkedList;
 /**

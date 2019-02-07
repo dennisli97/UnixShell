@@ -1,6 +1,6 @@
-package cs131.pa1.test;
+package test;
 
-import cs131.pa1.filter.Message;
+import filter.Message;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;

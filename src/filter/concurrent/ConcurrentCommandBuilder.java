@@ -1,10 +1,10 @@
-package cs131.pa1.filter.concurrent;
+package filter.concurrent;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import cs131.pa1.filter.Message;
+import filter.Message;
 
 public class ConcurrentCommandBuilder {
 	

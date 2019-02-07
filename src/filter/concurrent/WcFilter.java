@@ -1,4 +1,4 @@
-package cs131.pa1.filter.concurrent;
+package filter.concurrent;
 
 public class WcFilter extends ConcurrentFilter {
 	private int linecount;
@@ -26,31 +26,6 @@ public class WcFilter extends ConcurrentFilter {
 				processedLine = processLine(line);
 			}
 		}
-//		if(isDone()) {
-//			outQ.add(processLine(null));
-//		} else {
-//			while (!isDone()) {// haven't finish the process
-//				String line= "thisisanotherpoisonpilllollollolxxx";
-//				try {
-//					if (inQ.peek() != null && !inQ.peek().equals("xxxxthisisapoisonpill123123123hahahaha")) {
-//						line = inQ.take();
-//					}
-//				} catch (InterruptedException e1) {
-//					e1.printStackTrace();
-//				}
-//				String processedLine = null;
-//				if (!line.equals("thisisanotherpoisonpilllollollolxxx")) {
-//					processedLine = processLine(line);
-//				}
-//				if (processedLine != null){
-//					try {
-//						outQ.put(processedLine);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}// add out put for next to process
-//				}
-//			}
-//		}
 	}
 	
 	public String processLine(String line) {

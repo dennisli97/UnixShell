@@ -1,10 +1,10 @@
-package cs131.pa1.test;
+package test;
 
 
 
-import cs131.pa1.filter.Filter;
-import cs131.pa1.filter.Message;
-import cs131.pa1.filter.concurrent.ConcurrentREPL;
+import filter.Filter;
+import filter.Message;
+import filter.concurrent.ConcurrentREPL;
 
 import static org.junit.Assert.assertEquals;
 

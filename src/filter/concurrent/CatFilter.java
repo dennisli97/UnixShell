@@ -1,4 +1,4 @@
-package cs131.pa1.filter.concurrent;
+package filter.concurrent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +10,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.hamcrest.core.IsNot;
 
-import cs131.pa1.filter.Message;
-//
+import filter.Message;
+
 public class CatFilter extends ConcurrentFilter{
 	private Scanner reader;
 	

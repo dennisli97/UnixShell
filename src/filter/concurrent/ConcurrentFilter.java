@@ -1,9 +1,9 @@
-package cs131.pa1.filter.concurrent;
+package filter.concurrent;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import cs131.pa1.filter.Filter;
+import filter.Filter;
 
 public abstract class ConcurrentFilter extends Filter implements Runnable{
 	

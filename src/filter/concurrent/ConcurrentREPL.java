@@ -1,6 +1,6 @@
-package cs131.pa1.filter.concurrent;
+package filter.concurrent;
 
-import cs131.pa1.filter.Message;
+import filter.Message;
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
